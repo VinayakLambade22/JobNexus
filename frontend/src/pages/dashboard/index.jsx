@@ -135,138 +135,136 @@ export default function Dashboard() {
                           src={post?.userId?.profilePicture}
                           alt={`${post?.userId?.name}'s profile picture`}
                         />
-                        <div style={{ width: "80%" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "1.2rem",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <p style={{ fontWeight: "bold" }}>
+                        <div className={styles.postHeader}>
+                          <div className={styles.postUserInfo}>
+                            <p className={styles.postName}>
                               {post.userId.name}
                             </p>
-
-                            {post.userId._id ===
-                              authState.user?.userId?._id && (
-                              <div
-                                onClick={async () => {
-                                  await dispatch(
-                                    deletePost({ post_id: post._id })
-                                  );
-                                  dispatch(getAllPosts());
-                                }}
-                                style={{ cursor: "pointer" }}
-                              >
-                                <svg
-                                  style={{
-                                    width: "1.2rem",
-                                    height: "1.2rem",
-                                    color: "red",
-                                  }}
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  strokeWidth={1.5}
-                                  stroke="currentColor"
-                                  className="size-6"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                  />
-                                </svg>
-                              </div>
-                            )}
-                          </div>
-                          <div className={styles.singleCard_usernameContainer}>
                             <p className={styles.postUsername}>
                               @{post.userId.username}
                             </p>
-
-                            <p className={styles.postDate}>
-                              Posted at {formatDate(post.createdAt)}
-                            </p>
                           </div>
+                          <p className={styles.postDate}>
+                            {formatDate(post.createdAt)}
+                          </p>
+                        </div>
 
-                          <p className={styles.postBody}>{post.body}</p>
-                          <div className={styles.singleCard_image}>
-                            <img src={post.media} alt="Post Media" />
+                        {post.userId._id === authState.user?.userId?._id && (
+                          <div
+                            onClick={async () => {
+                              await dispatch(deletePost({ post_id: post._id }));
+                              dispatch(getAllPosts());
+                            }}
+                            className={styles.deleteButton}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                              />
+                            </svg>
                           </div>
+                        )}
+                      </div>
 
-                          <div className={styles.optionContainer}>
-                            <div
-                              onClick={async () => {
-                                await dispatch(
-                                  incrementPostLike({ post_id: post._id })
-                                );
-                              }}
-                              className={styles.singleOption_optionsContainer}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill={isLiked ? "red" : "none"}
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke={isLiked ? "red" : "currentColor"}
-                                className="size-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"
-                                />
-                              </svg>
-                              <p>{post.likes.length}</p>
-                            </div>
-                            <div
-                              onClick={() => {
-                                dispatch(getAllComments({ post_id: post._id }));
-                              }}
-                              className={styles.singleOption_optionsContainer}
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="size-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
-                                />
-                              </svg>
-                            </div>
-                            <div
-                              onClick={() => {
-                                const text = encodeURIComponent(post.body);
-                                const url = encodeURIComponent("@Rolex_Sir_");
+                      <p className={styles.postBody}>{post.body}</p>
 
-                                const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-                                window.open(twitterUrl);
-                              }}
-                              className={styles.singleOption_optionsContainer}
+                      {post.media && (
+                        <div className={styles.mediaContainer}>
+                          {post.fileTypes === "mp4" ? (
+                            <video className={styles.postVideo} controls>
+                              <source src={post.media} type="video/mp4" />
+                            </video>
+                          ) : (
+                            <img
+                              className={styles.postImage}
+                              src={post.media}
+                              alt="Post Media"
+                            />
+                          )}
+                        </div>
+                      )}
+
+                      <div className={styles.engagementContainer}>
+                        <div className={styles.likeContainer}>
+                          <div
+                            onClick={async () => {
+                              await dispatch(
+                                incrementPostLike({ post_id: post._id })
+                              );
+                            }}
+                            className={styles.likeButton}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill={isLiked ? "#1D9BF0" : "none"}
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke={isLiked ? "#1D9BF0" : "currentColor"}
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="size-6"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
-                                />
-                              </svg>
-                            </div>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"
+                              />
+                            </svg>
                           </div>
+                          <p className={styles.likeCount}>
+                            {post.likes.length}
+                          </p>
+                        </div>
+
+                        <div
+                          onClick={() => {
+                            dispatch(getAllComments({ post_id: post._id }));
+                          }}
+                          className={styles.commentButton}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+                            />
+                          </svg>
+                        </div>
+
+                        <div
+                          onClick={() => {
+                            const text = encodeURIComponent(post.body);
+                            const url = encodeURIComponent("@Rolex_Sir_");
+
+                            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                            window.open(twitterUrl);
+                          }}
+                          className={styles.shareButton}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                            />
+                          </svg>
                         </div>
                       </div>
                     </div>
@@ -307,18 +305,15 @@ export default function Dashboard() {
                               alt=""
                             />
                             <div>
-                              <p
-                                style={{
-                                  fontWeight: "bold",
-                                  fontSize: "1.2rem",
-                                }}
-                              >
+                              <p className={styles.singleComment_name}>
                                 {postComment.userId.name}
                               </p>
-                              <p>{postComment.userId.username}</p>
+                              <p className={styles.singleComment_username}>
+                                {postComment.userId.username}
+                              </p>
                             </div>
                           </div>
-                          <p style={{ marginLeft: "1.5rem" }}>
+                          <p className={styles.singleComment_body}>
                             {postComment.body}
                           </p>
                         </div>

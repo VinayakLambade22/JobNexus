@@ -22,6 +22,7 @@ export const createPost = async (req, res) => {
     if (req.file) {
       const uploadResult = await cloudinary.uploader.upload(req.file.path, {
         folder: "linkedin_clone",
+        resource_type: "auto",
       });
 
       mediaUrl = uploadResult.secure_url;

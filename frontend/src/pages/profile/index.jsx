@@ -207,7 +207,7 @@ export default function ProfilePage() {
                         setUserProfile({ ...userProfile, bio: e.target.value })
                       }
                       rows={Math.max(3, Math.ceil(userProfile.bio.length / 80))}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", resize: "none" }}
                     ></textarea>
                   </div>
                 </div>
@@ -219,13 +219,24 @@ export default function ProfilePage() {
                       <div className={styles.card}>
                         <div className={styles.card_profileContainer}>
                           {post.media ? (
-                            <img src={post.media} alt="Post media" />
+                            post.fileTypes === "mp4" ? (
+                              <video className={styles.postVideo} controls>
+                                <source src={post.media} type="video/mp4" />
+                              </video>
+                            ) : (
+                              <img
+                                className={styles.postImage}
+                                src={post.media}
+                                alt="Post Media"
+                              />
+                            )
                           ) : (
                             <div
-                              style={{ width: "auto", height: "4rem" }}
+                              style={{ width: "auto", height: "0.5rem" }}
                             ></div>
                           )}
                         </div>
+
                         <p className={styles.card_text}>{post.body}</p>
                       </div>
                     </div>

@@ -235,7 +235,11 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-.card_profileContainer img {
+.postVideo {
+  width: 100%;
+}
+
+.postImage {
   width: 100%;
 }
 
@@ -330,7 +334,7 @@
   }
 
   .card_text {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .editProfileButton {

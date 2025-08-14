@@ -178,10 +178,20 @@ export default function ViewProfilePage({ userProfile }) {
                       <div className={styles.card}>
                         <div className={styles.card_profileContainer}>
                           {post.media ? (
-                            <img src={post.media} alt="Post media" />
+                            post.fileTypes === "mp4" ? (
+                              <video className={styles.postVideo} controls>
+                                <source src={post.media} type="video/mp4" />
+                              </video>
+                            ) : (
+                              <img
+                                className={styles.postImage}
+                                src={post.media}
+                                alt="Post Media"
+                              />
+                            )
                           ) : (
                             <div
-                              style={{ width: "auto", height: "4rem" }}
+                              style={{ width: "auto", height: "0.5rem" }}
                             ></div>
                           )}
                         </div>
