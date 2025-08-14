@@ -3,6 +3,7 @@
   width: 100%;
   height: calc(100vh - 4rem);
   overflow-y: auto;
+  padding-inline: 20px;
 }
 
 .backdropContainer {
@@ -25,10 +26,6 @@
   bottom: -30%;
   left: 3%;
   z-index: 3;
-}
-
-.backdrop_overlay {
-  z-index: 4;
 }
 
 .backdrop_overlay::after {
