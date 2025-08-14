@@ -5,7 +5,7 @@ import cloudinary from "./cloudinary.js";
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req, file) => {
-    let folder = "generic";
+    let folder = "Jobnexus";
     if (file.fieldname === "profile_picture") folder = "profile_pictures";
     else if (file.fieldname === "media") folder = "posts_media";
 
