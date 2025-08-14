@@ -1,0 +1,134 @@
+.discoverContainer {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.searchContainer {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #f3f2ef;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #0a66c2;
+  background: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #666;
+}
+
+.allUserProfile {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+
+.userCard {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.2rem;
+  transition: all 0.2s;
+}
+
+.userCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-color: #0a66c2;
+}
+
+.profileImage {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.userInfo h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+  color: #191919;
+}
+
+.userInfo p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.noResults {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .discoverContainer {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .searchInput {
+    font-size: 0.9rem;
+    border-radius: 24px;
+  }
+
+  .searchIcon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .allUserProfile {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .userCard {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .userCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .profileImage {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.8rem;
+  }
+
+  .userInfo h2 {
+    font-size: 0.95rem;
+  }
+
+  .userInfo p {
+    font-size: 0.8rem;
+  }
+
+  .noResults {
+    padding: 3rem 2rem;
+    font-size: 0.9rem;
+  }
+}

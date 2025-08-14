@@ -1,0 +1,135 @@
+.container {
+  background: #f3f2ef;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  width: 70vw;
+  max-width: 900px;
+  height: 70vh;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardContainer_left {
+  flex: 0.5;
+  padding: 2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardContainer_right {
+  flex: 0.5;
+  background: #0a66c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardleft_heading {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: #191919;
+}
+
+.inputField {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.inputRow > .inputField {
+  flex: 1;
+}
+
+.buttonWithOutline {
+  width: 100%;
+  padding: 1rem;
+  background: #0a66c2;
+  color: white;
+  border-radius: 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.buttonWithOutline:hover {
+  background-color: #004182;
+}
+
+.toggleText {
+  color: #0f0f0f;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.toggleAction {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .cardContainer {
+    flex-direction: column;
+    width: 95vw;
+    height: 60vh;
+  }
+
+  .cardContainer_left {
+    padding: 2rem 1.5rem;
+  }
+
+  .cardContainer_right {
+    height: 50px;
+  }
+
+  .cardleft_heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .inputField {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .inputRow {
+    flex-direction: column;
+  }
+
+  .buttonWithOutline {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .toggleText {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+}
