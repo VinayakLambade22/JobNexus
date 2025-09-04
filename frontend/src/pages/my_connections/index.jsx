@@ -8,7 +8,7 @@ import {
   getMyConnectionRequests,
   getMyNetwork,
   rejectConnectionRequest,
-  disconnectConnection, 
+  disconnectConnection,
 } from "@/config/redux/action/authAction";
 import styles from "./style.module.css";
 
@@ -97,14 +97,15 @@ export default function MyConnectionsPage() {
             <p>No connections yet.</p>
           ) : (
             authState.network.map((user) => (
-              <div
-                className={styles.userCard}
-                key={user._id}
-                onClick={() => router.push(`/view_profile/${user.username}`)}
-                style={{ cursor: "pointer" }}
-              >
+              <div className={styles.userCard} key={user._id}>
                 <div className={styles.userInfoContainer}>
-                  <div className={styles.profilePicture}>
+                  <div
+                    onClick={() =>
+                      router.push(`/view_profile/${user.username}`)
+                    }
+                    style={{ cursor: "pointer" }}
+                    className={styles.profilePicture}
+                  >
                     <img src={user.profilePicture} alt={user.name} />
                   </div>
                   <div className={styles.userDetails}>

@@ -32,17 +32,18 @@ function LoginComponent() {
 
   useEffect(() => {
     dispatch(emptyMessage());
-  }, [userLoginMethod]);
+    setUsername("");
+    setName("");
+    setEmailAddress("");
+    setPassword("");
+  }, [userLoginMethod, dispatch]);
 
   useEffect(() => {
-    if (
-      authState.message?.message ===
-      "Registration successfull ! Please Sign In."
-    ) {
+    if (authState.message) {
       setUsername("");
+      setName("");
       setEmailAddress("");
       setPassword("");
-      setName("");
     }
   }, [authState.message]);
 
@@ -129,7 +130,9 @@ function LoginComponent() {
 
           <div className={styles.cardContainer_right}>
             <p className={styles.toggleText}>
-              {userLoginMethod ? "Don't have an account? " : "Already have an account? "}
+              {userLoginMethod
+                ? "Don't have an account? "
+                : "Already have an account? "}
               <span
                 className={styles.toggleAction}
                 onClick={() => {

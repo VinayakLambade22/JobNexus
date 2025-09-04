@@ -50,7 +50,11 @@ function NavBarComponent() {
     <div className={styles.container} ref={dropdownRef}>
       <nav className={styles.navBar}>
         <div className={styles.logoContainer} onClick={() => router.push("/")}>
-         <img className={styles.linkedinLogo} src="/images/linkedin.png" alt="" />
+          <img
+            className={styles.linkedinLogo}
+            src="/images/linkedin.png"
+            alt=""
+          />
           <h1 className={styles.logoText}>JobNexus</h1>
         </div>
 

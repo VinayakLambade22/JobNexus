@@ -78,6 +78,9 @@ export default function Dashboard() {
             <div className={styles.wrapper}>
               <div className={styles.createPostContainer}>
                 <img
+                  onClick={() => {
+                    router.push("/profile");
+                  }}
                   className={styles.userProfile}
                   src={authState.user?.userId?.profilePicture}
                   alt=""
@@ -131,6 +134,9 @@ export default function Dashboard() {
                     <div key={post._id} className={styles.singleCard}>
                       <div className={styles.singleCard_profileContainer}>
                         <img
+                          onClick={() =>
+                            router.push(`/view_profile/${post.userId.username}`)
+                          }
                           className={styles.userProfile}
                           src={post?.userId?.profilePicture}
                           alt={`${post?.userId?.name}'s profile picture`}

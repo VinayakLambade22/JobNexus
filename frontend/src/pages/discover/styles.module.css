@@ -39,6 +39,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.2rem;
+  
 }
 
 .userCard {
@@ -47,6 +48,7 @@
   border-radius: 8px;
   padding: 1.2rem;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .userCard:hover {
