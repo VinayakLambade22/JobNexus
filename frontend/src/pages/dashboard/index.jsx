@@ -15,6 +15,7 @@ import UserLayout from "@/layout/UserLayout";
 import DashboardLayout from "@/layout/DashboardLayout";
 import styles from "./styles.module.css";
 import { resetPostId } from "@/config/redux/reducer/postReducer";
+import Spinner from "@/components/Spinner";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -62,11 +63,20 @@ export default function Dashboard() {
     dispatch(getAllPosts());
   };
 
-  if (!authState.user) {
+  if (authState.isLoading || postState.isLoading || !authState.user) {
     return (
       <UserLayout>
         <DashboardLayout>
-          <h2>Loading...</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "50vh",
+            }}
+          >
+            <Spinner />
+          </div>
         </DashboardLayout>
       </UserLayout>
     );

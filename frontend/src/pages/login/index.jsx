@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import styles from "./style.module.css";
 import { loginUser, registerUser } from "@/config/redux/action/authAction";
 import { emptyMessage } from "@/config/redux/reducer/authReducer";
+import Spinner from "@/components/Spinner";
 
 function LoginComponent() {
   const authState = useSelector((state) => state.auth);
@@ -28,7 +29,7 @@ function LoginComponent() {
     if (localStorage.getItem("token")) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     dispatch(emptyMessage());
@@ -121,9 +122,19 @@ function LoginComponent() {
 
               <div
                 className={styles.buttonWithOutline}
-                onClick={userLoginMethod ? handleLogin : handleRegister}
+                onClick={
+                  authState.isLoading
+                    ? () => {}
+                    : userLoginMethod
+                    ? handleLogin
+                    : handleRegister
+                }
               >
-                <p>{userLoginMethod ? "Sign In" : "Sign Up"}</p>
+                {authState.isLoading ? (
+                  <Spinner />
+                ) : (
+                  <p>{userLoginMethod ? "Sign In" : "Sign Up"}</p>
+                )}
               </div>
             </div>
           </div>

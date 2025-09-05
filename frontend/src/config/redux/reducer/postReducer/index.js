@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllPosts, getAllComments, incrementPostLike } from "../../action/postAction";
+import {
+  getAllPosts,
+  getAllComments,
+  incrementPostLike,
+  createPost,
+  deletePost,
+  postComment,
+} from "../../action/postAction";
 
 const initialState = {
   posts: [],
@@ -39,9 +46,16 @@ const postSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      .addCase(getAllComments.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getAllComments.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.postId = action.payload.post_id;
         state.comments = action.payload.comments;
+      })
+      .addCase(getAllComments.rejected, (state) => {
+        state.isLoading = false;
       })
       .addCase(incrementPostLike.fulfilled, (state, action) => {
         const { updatedPost } = action.payload;
@@ -50,6 +64,33 @@ const postSlice = createSlice({
             ? { ...post, likes: updatedPost.likes }
             : post
         );
+      })
+      .addCase(createPost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createPost.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(createPost.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deletePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deletePost.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(deletePost.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(postComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(postComment.fulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(postComment.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "@/config/redux/action/authAction";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
+import Spinner from "@/components/Spinner"; 
 
 export default function DiscoverPage() {
   const authState = useSelector((state) => state.auth);
@@ -19,25 +20,25 @@ export default function DiscoverPage() {
     if (!authState.all_profiles_fetched) {
       dispatch(getAllUsers());
     }
-  }, []);
+  }, [dispatch, authState.all_profiles_fetched]);
 
- useEffect(() => {
-  if (authState.all_users.length > 0) {
-    const filtered = authState.all_users.filter((user) => {
-      const name = user.userId?.name?.toLowerCase() || "";
-      const username = user.userId?.username?.toLowerCase() || "";
-      const id = user.userId?._id;
+  useEffect(() => {
+    if (authState.all_users.length > 0) {
+      const filtered = authState.all_users.filter((user) => {
+        const name = user.userId?.name?.toLowerCase() || "";
+        const username = user.userId?.username?.toLowerCase() || "";
+        const id = user.userId?._id;
 
-      const matchesSearch =
-        name.includes(searchQuery.toLowerCase()) ||
-        username.includes(searchQuery.toLowerCase());
+        const matchesSearch =
+          name.includes(searchQuery.toLowerCase()) ||
+          username.includes(searchQuery.toLowerCase());
 
-      return id && id !== currentUserId && matchesSearch;
-    });
+        return id && id !== currentUserId && matchesSearch;
+      });
 
-    setFilteredUsers(filtered);
-  }
-}, [searchQuery, authState.all_users, currentUserId]);
+      setFilteredUsers(filtered);
+    }
+  }, [searchQuery, authState.all_users, currentUserId]);
 
   return (
     <UserLayout>
@@ -45,7 +46,6 @@ export default function DiscoverPage() {
         <div className={styles.discoverContainer}>
           <h1>Discover People</h1>
 
-          {/* Search Bar */}
           <div className={styles.searchContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,9 @@ export default function DiscoverPage() {
           )}
 
           <div className={styles.allUserProfile}>
-            {authState.all_profiles_fetched && filteredUsers.length > 0 ? (
+            {authState.isLoading ? (
+              <Spinner />
+            ) : authState.all_profiles_fetched && filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
                 <div
                   onClick={() => {
@@ -98,14 +100,12 @@ export default function DiscoverPage() {
                   </div>
                 </div>
               ))
-            ) : authState.all_profiles_fetched ? (
+            ) : (
               <p className={styles.noResults}>
                 {searchQuery
                   ? "No users match your search"
                   : "No other users found"}
               </p>
-            ) : (
-              <p>Loading users...</p>
             )}
           </div>
         </div>

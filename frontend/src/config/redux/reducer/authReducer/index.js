@@ -10,6 +10,7 @@ import {
   acceptConnectionRequest,
   getMyNetwork,
   rejectConnectionRequest,
+  disconnectConnection, 
 } from "../../action/authAction";
 
 const initialState = {
@@ -88,11 +89,22 @@ const authSlice = createSlice({
         state.loggedIn = false;
         state.message = action.payload || "Registration failed";
       })
+      .addCase(getAboutUser.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getAboutUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.profileFetched = true;
         state.user = action.payload.userProfile;
+      })
+      .addCase(getAboutUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getAllUsers.pending, (state) => {
+        state.isLoading = true;
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -100,41 +112,84 @@ const authSlice = createSlice({
         state.all_profiles_fetched = true;
         state.all_users = action.payload.profiles;
       })
+      .addCase(getAllUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(getConnectionsRequest.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getConnectionsRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.connections = action.payload;
       })
       .addCase(getConnectionsRequest.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(getMyConnectionRequests.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getMyConnectionRequests.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.connectionRequest = action.payload;
       })
       .addCase(getMyConnectionRequests.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(sendConnectionRequest.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(sendConnectionRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
       .addCase(sendConnectionRequest.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(acceptConnectionRequest.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(acceptConnectionRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
       .addCase(acceptConnectionRequest.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(getMyNetwork.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(getMyNetwork.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.network = action.payload;
       })
       .addCase(getMyNetwork.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
+      .addCase(rejectConnectionRequest.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(rejectConnectionRequest.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
       })
       .addCase(rejectConnectionRequest.rejected, (state, action) => {
+        state.isLoading = false;
         state.message = action.payload;
+      })
+      .addCase(disconnectConnection.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(disconnectConnection.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(disconnectConnection.rejected, (state, action) => {
+        state.isLoading = false;
       });
   },
 });
