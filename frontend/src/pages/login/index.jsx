@@ -131,7 +131,9 @@ function LoginComponent() {
                 }
               >
                 {authState.isLoading ? (
-                  <Spinner />
+                  <div className={styles.smallSpinner}>
+                    <Spinner />
+                  </div>
                 ) : (
                   <p>{userLoginMethod ? "Sign In" : "Sign Up"}</p>
                 )}
