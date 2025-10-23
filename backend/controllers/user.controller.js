@@ -131,11 +131,13 @@ export const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const token = crypto.randomBytes(32).toString("hex");
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
       username,
+      token,
     });
 
     await newUser.save();
@@ -145,7 +147,7 @@ export const register = async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "Registration successfull ! Please Sign In." });
+      .json({ message: "Registration successful! Logging you in...", token });
   } catch (error) {
     if (error.code === 11000) {
       const field = Object.keys(error.keyValue)[0];

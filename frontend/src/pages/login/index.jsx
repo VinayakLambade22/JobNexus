@@ -20,10 +20,10 @@ function LoginComponent() {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    if (authState.loggedIn && userLoginMethod) {
+    if (authState.loggedIn) {
       router.push("/dashboard");
     }
-  }, [authState.loggedIn, userLoginMethod, router]);
+  }, [authState.loggedIn, router]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

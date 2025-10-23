@@ -10,7 +10,7 @@ import {
   acceptConnectionRequest,
   getMyNetwork,
   rejectConnectionRequest,
-  disconnectConnection, 
+  disconnectConnection,
 } from "../../action/authAction";
 
 const initialState = {
@@ -76,11 +76,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.loggedIn = false;
-        state.user = action.payload;
-        state.message = {
-          message: "Registration successfull ! Please Sign In.",
-        };
+        state.loggedIn = action.payload.token ? true : false;
+        state.user = action.payload.token || action.payload;
+        state.message = action.payload.message || "Registration successful!";
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;

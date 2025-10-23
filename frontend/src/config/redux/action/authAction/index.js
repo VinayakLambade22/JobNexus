@@ -35,6 +35,11 @@ export const registerUser = createAsyncThunk(
         email: user.email,
         name: user.name,
       });
+
+      if (request.data.token) {
+        localStorage.setItem("token", request.data.token);
+      }
+
       return thunkAPI.fulfillWithValue(request.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -135,7 +140,7 @@ export const acceptConnectionRequest = createAsyncThunk(
       );
       thunkAPI.dispatch(getConnectionsRequest({ token: user.token }));
       thunkAPI.dispatch(getMyConnectionRequests({ token: user.token }));
-      thunkAPI.dispatch(getMyNetwork({ token: user.token })); 
+      thunkAPI.dispatch(getMyNetwork({ token: user.token }));
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
@@ -168,7 +173,7 @@ export const rejectConnectionRequest = createAsyncThunk(
           requestId: user.connectionId,
         }
       );
-      
+
       thunkAPI.dispatch(getMyConnectionRequests({ token: user.token }));
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -181,13 +186,10 @@ export const disconnectConnection = createAsyncThunk(
   "user/disconnectConnection",
   async (user, thunkAPI) => {
     try {
-      const response = await clientServer.post(
-        "/user/disconnect_connection",
-        {
-          token: user.token,
-          connectionId: user.connectionId,
-        }
-      );
+      const response = await clientServer.post("/user/disconnect_connection", {
+        token: user.token,
+        connectionId: user.connectionId,
+      });
 
       thunkAPI.dispatch(getMyNetwork({ token: user.token }));
 
